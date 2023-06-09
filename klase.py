@@ -15,6 +15,7 @@ class Restorani:
         self.upit = None
         self.porudzbina=None
         self.novaporudzbina=None
+        self.jelo_restorani=None
     
 
     def get_porudzbina(self):
@@ -54,20 +55,20 @@ class Restorani:
 
 
     def get_jelo_restran(self):
-        self.novaporudzbina = pd.read_sql_query(
+        self.jelo_restorani = pd.read_sql_query(
             'SELECT r.naziv_restorana,j.jelo,j.cena,j.id_jela,r.id_restoran FROM Restorani r, Jelovnici j WHERE r.id_restoran=j.id_restoran',
             self.con
         )
-        self.novaporudzbina['novaporudzbina'] = self.novaporudzbina.apply(
+        self.jelo_restorani['jelo_restorani'] = self.jelo_restorani.apply(
             lambda row: f"{row['naziv_restorana']}-{row['jelo']}-{row['cena']}-{row['id_jela']}-{row['id_restoran']}",
             axis=1
         )
 
 
     def lista_listbox1(self):
-        if self.novaporudzbina is None:
+        if self.jelo_restorani is None:
             self.get_jelo_restran()
-        return self.novaporudzbina['novaporudzbina'].tolist()
+        return self.jelo_restorani['jelo_restorani'].tolist()
 
 
     def get_sql(self, query):
