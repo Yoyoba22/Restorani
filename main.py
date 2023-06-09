@@ -56,25 +56,6 @@ def update_listbox1():
     lb1.delete(0,END)
     [lb1.insert(END,i) for i in R.lista_listbox1()]
 
-def nova_porudzbina1():
-    selected_indices = lb1.curselection()
-    if selected_indices:
-        selected_index = selected_indices[0]
-        selected_item = lb1.get(selected_index)
-        selected_values = selected_item.split('-')
-        if len(selected_values) < 5:
-            messagebox.showwarning("Napomena", "Selektovana stavka nema validne vrednosti.")
-        elif e1.get()=='' or e2.get()=='':
-            pa.alert('Polja nisu popunjena. Molimo popunite oba polja')
-        else:
-            datum_porudzbine = datetime.strptime(e3.get(), '%Y-%m-%d').date()
-            R.nova_porudzbina(e1.get(), e2.get(), e3.get(), int(selected_values[3]), int(selected_values[4]))
-            update_listbox()
-    else:
-        messagebox.showwarning("Napomena", "Nijedna stavka nije selektovana.")
-
-
-
 def open_nova_porudzbina():
     global lb1
     global e1
@@ -112,6 +93,24 @@ def open_nova_porudzbina():
     b1 = Button(t, text='Dodaj', command=lambda: handle_choice(pa.confirm('Da li sigurno želite da dodate novu porudžbinu?', buttons=['Da', 'Ne'])))
     b1.grid(row=6, column=1, columnspan=1)
     update_listbox1()
+
+  
+def nova_porudzbina1():
+    selected_indices = lb1.curselection()
+    if selected_indices:
+        selected_index = selected_indices[0]
+        selected_item = lb1.get(selected_index)
+        selected_values = selected_item.split('-')
+        if len(selected_values) < 5:
+            messagebox.showwarning("Napomena", "Selektovana stavka nema validne vrednosti.")
+        elif e1.get()=='' or e2.get()=='':
+            pa.alert('Polja nisu popunjena. Molimo popunite oba polja')
+        else:
+            datum_porudzbine = datetime.strptime(e3.get(), '%Y-%m-%d').date()
+            R.nova_porudzbina(e1.get(), e2.get(), e3.get(), int(selected_values[3]), int(selected_values[4]))
+            update_listbox()
+    else:
+        messagebox.showwarning("Napomena", "Nijedna stavka nije selektovana.")
 
 
 
